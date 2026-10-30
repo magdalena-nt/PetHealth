@@ -1,9 +1,9 @@
 {
   "package": "@przeprogramowani/10x-cli",
-  "version": "1.30.1",
+  "version": "1.31.0",
   "manifestVersion": 3,
-  "lastApplied": "2026-10-23T12:34:24.196Z",
-  "lessonId": "m1l3",
+  "lastApplied": "2026-10-27T14:15:50.766Z",
+  "lessonId": "m1l4",
   "course": "10xdevs4",
   "tool": "generic",
   "files": {
@@ -121,6 +121,30 @@
           "SKILL.md": "545baf562c8967a9965d8b1e19a136d5d7f7d7fb3292eb880576f1adcb13deda",
           "references/health-check-schema.md": "6c7115da83ef2a4a396a9b703d94395a0904748bb586a6e182f2018fcbfedfe6"
         }
+      },
+      "10x-agents-md": {
+        "files": [
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "SKILL.md": "1074ca498a1bcb362c00baa94a61c6aae7ac63b05cf45e40912fd6b462ba283f"
+        }
+      },
+      "10x-rule-review": {
+        "files": [
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "SKILL.md": "32cb357b8f78bc08baa6d15a552db763c7465b6dc9cda9ba4e63c3828c6f34d7"
+        }
+      },
+      "10x-lesson": {
+        "files": [
+          "SKILL.md"
+        ],
+        "contentHashes": {
+          "SKILL.md": "18eadf0f3578b060e5318192a426b996bb01660e6f53bc5c239e579d5fede14e"
+        }
       }
     },
     "prompts": [
@@ -133,8 +157,8 @@
     "configHashes": {}
   },
   "lessons": {
-    "m1l3": {
-      "appliedAt": "2026-10-23T12:34:24.196Z",
+    "m1l4": {
+      "appliedAt": "2026-10-27T14:15:50.766Z",
       "skills": {
         "10x-idea-check": {
           "files": [
@@ -200,30 +224,31 @@
             "SKILL.md",
             "references/health-check-schema.md"
           ]
+        },
+        "10x-agents-md": {
+          "files": [
+            "SKILL.md"
+          ]
+        },
+        "10x-rule-review": {
+          "files": [
+            "SKILL.md"
+          ]
+        },
+        "10x-lesson": {
+          "files": [
+            "SKILL.md"
+          ]
         }
       },
       "prompts": [
         "skill-explainer.md"
       ],
-      "configs": [],
-      "representation": {
-        "lang": "pl",
-        "tool": "generic",
-        "courseRules": true,
-        "rules": true
-      },
-      "installedReleaseId": "r-5a881691e49bc76caa8246859885fd0f6213df0a3841d25e221fa9294a2b4673",
-      "installedManifestHash": "11d85eaf9ca2fe01249cc24a43f5b6aca196b16fb79576a3d3a29bc08ba9863d"
+      "configs": []
     }
   },
-  "managedRules": {
-    "path": "AGENTS.md",
-    "begin": "<!-- BEGIN @przeprogramowani/10x-cli -->",
-    "end": "<!-- END @przeprogramowani/10x-cli -->",
-    "upstreamHash": "225c57d7fac361a5ceaf32a83abc884d104192c07ef72855682208beaf84011e"
-  },
   "toolkit": {
-    "version": "v2.60.3",
-    "recordedAt": "2026-10-23T12:34:24.361Z"
+    "version": "v2.60.4",
+    "recordedAt": "2026-10-27T14:15:50.858Z"
   }
 }
