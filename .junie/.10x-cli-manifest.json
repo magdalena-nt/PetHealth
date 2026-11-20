@@ -1,9 +1,9 @@
 {
   "package": "@przeprogramowani/10x-cli",
-  "version": "1.31.0",
+  "version": "1.35.1",
   "manifestVersion": 3,
-  "lastApplied": "2026-10-27T14:15:50.766Z",
-  "lessonId": "m1l4",
+  "lastApplied": "2026-11-20T07:52:26.113Z",
+  "lessonId": "m1l5",
   "course": "10xdevs4",
   "tool": "generic",
   "files": {
@@ -145,20 +145,38 @@
         "contentHashes": {
           "SKILL.md": "18eadf0f3578b060e5318192a426b996bb01660e6f53bc5c239e579d5fede14e"
         }
+      },
+      "10x-infra-research": {
+        "files": [
+          "SKILL.md",
+          "references/agent-friendly-criteria.md"
+        ],
+        "contentHashes": {
+          "SKILL.md": "81fb2eb175c084807b63830191fe574a2b93dd182268b325c787b4f8d6a21e45",
+          "references/agent-friendly-criteria.md": "888b4b712107bf8d8600061e1d907bb1bc14081cb2c3a74be8c7da641a35ab72"
+        }
       }
     },
     "prompts": [
-      "skill-explainer.md"
+      "skill-explainer.md",
+      "m1l5-1-plan-integration.md",
+      "m1l5-2-constrain-approach.md",
+      "m1l5-3-extend-prerequisites.md",
+      "m1l5-4-store-plan.md"
     ],
     "configs": [],
     "promptHashes": {
-      "skill-explainer.md": "b304a2ba56c72752f6813871a0f039d1ad43afc84c714fc1fe839b05fd98be6e"
+      "skill-explainer.md": "b304a2ba56c72752f6813871a0f039d1ad43afc84c714fc1fe839b05fd98be6e",
+      "m1l5-1-plan-integration.md": "0710e988e16dcfa4c5ade7380da1f70641ea9b9e959008b94059ce52660d6118",
+      "m1l5-2-constrain-approach.md": "2708716aecac24ad3c5f6793ba2c2385f4d7e53f33f5d735c5de07be43b1081e",
+      "m1l5-3-extend-prerequisites.md": "90eaf318eade9962d118b67707cc8426c70567a9951105c4a1964623858ab8a7",
+      "m1l5-4-store-plan.md": "1f5db15fadaa9a5c3acd9a47f3a97db060f5093005ad696e182be7d4bedd8d7d"
     },
     "configHashes": {}
   },
   "lessons": {
-    "m1l4": {
-      "appliedAt": "2026-10-27T14:15:50.766Z",
+    "m1l5": {
+      "appliedAt": "2026-11-20T07:52:26.113Z",
       "skills": {
         "10x-idea-check": {
           "files": [
@@ -239,16 +257,40 @@
           "files": [
             "SKILL.md"
           ]
+        },
+        "10x-infra-research": {
+          "files": [
+            "SKILL.md",
+            "references/agent-friendly-criteria.md"
+          ]
         }
       },
       "prompts": [
-        "skill-explainer.md"
+        "skill-explainer.md",
+        "m1l5-1-plan-integration.md",
+        "m1l5-2-constrain-approach.md",
+        "m1l5-3-extend-prerequisites.md",
+        "m1l5-4-store-plan.md"
       ],
-      "configs": []
+      "configs": [],
+      "representation": {
+        "lang": "pl",
+        "tool": "generic",
+        "courseRules": true,
+        "rules": true
+      },
+      "installedReleaseId": "r-75b2f5248dc4fb09c82cf0d917b335627abacf5796ae27cc42667af18fe5b346",
+      "installedManifestHash": "e3a109d71a1e07423e6285992a83f4555bcbaab925ad85ea3e3b759132f19afb"
     }
   },
+  "managedRules": {
+    "path": "AGENTS.md",
+    "begin": "<!-- BEGIN @przeprogramowani/10x-cli -->",
+    "end": "<!-- END @przeprogramowani/10x-cli -->",
+    "upstreamHash": "78925d622401917fa5fd2e311724a0ad4162a7ef45ac4aadf803713025d43fbf"
+  },
   "toolkit": {
-    "version": "v2.60.4",
-    "recordedAt": "2026-10-27T14:15:50.858Z"
+    "version": "v2.62.0",
+    "recordedAt": "2026-11-20T07:52:26.200Z"
   }
 }
