@@ -1,0 +1,83 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+export const prerender = false;
+
+Astro.response.headers.set("Cache-Control", "no-store");
+Astro.response.headers.set("Referrer-Policy", "no-referrer");
+
+const tokenHash = Astro.url.searchParams.get("token_hash");
+const status = Astro.url.searchParams.get("status");
+const canConfirm = Boolean(tokenHash && tokenHash.length <= 2048 && !status);
+---
+
+<Layout title="Confirm your email">
+  <div class="bg-cosmic flex min-h-screen items-center justify-center p-4">
+    <div class="w-full max-w-sm rounded-2xl border border-white/10 bg-white/10 p-8 text-center text-white backdrop-blur-xl">
+      <div class="mb-4 text-5xl">{canConfirm ? "✉️" : "⚠️"}</div>
+      <h1 class="mb-3 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-2xl font-bold text-transparent">
+        {canConfirm ? "Confirm your email" : "Email confirmation"}
+      </h1>
+      {canConfirm ? (
+        <>
+          <p class="mb-6 text-blue-100/80">
+            Select the button to confirm your email and sign in. If you did not request this, you can close this page.
+          </p>
+          <form method="POST" action="/api/auth/confirm" data-confirmation-form>
+            <input type="hidden" name="token_hash" value={tokenHash ?? ""} />
+            <button
+              type="submit"
+              class="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/20"
+            >
+              Confirm email
+            </button>
+          </form>
+          <p class="mt-4 text-sm text-blue-100/80" role="status" aria-live="polite" data-confirmation-status></p>
+        </>
+      ) : (
+        <>
+          <p class="mb-6 text-blue-100/80">
+            {status === "unavailable"
+              ? "Confirmation is temporarily unavailable. Please try again later."
+              : status === "invalid"
+                ? "This link is invalid, expired, or already used. Sign in if you have already confirmed; otherwise contact the site owner for a new link."
+                : "This confirmation link is incomplete. Open the full link from your confirmation email."}
+          </p>
+          <a href="/auth/signin" class="text-sm text-purple-300 hover:underline">
+            Go to sign in
+          </a>
+        </>
+      )}
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-confirmation-form]");
+  const status = document.querySelector<HTMLElement>("[data-confirmation-status]");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (button) button.disabled = true;
+    if (status) status.textContent = "Confirming your email…";
+
+    const tokenHash = new FormData(form).get("token_hash");
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ token_hash: typeof tokenHash === "string" ? tokenHash : "" }),
+        credentials: "same-origin",
+      });
+      if (!response.ok || new URL(response.url).origin !== window.location.origin) {
+        throw new Error("Confirmation failed");
+      }
+
+      window.location.assign(response.url);
+    } catch {
+      if (status) status.textContent = "Confirmation could not be completed. Please try again later.";
+      if (button) button.disabled = false;
+    }
+  });
+</script>

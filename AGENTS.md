@@ -33,9 +33,9 @@ See @README.md#prerequisites and @README.md#available-scripts for setup and avai
 
 - No unit test framework is configured; see @README.md#smoke-test for the smoke-test workflow and prerequisites.
 
-## CI
+## Verification and deployment
 
-See @.github/workflows/ci.yml for CI jobs and @README.md#ci for their requirements.
+GitHub Actions are disabled. Follow @README.md#deployment for manual checks and the planned Cloudflare Workers Builds path; do not enable Builds before explicit owner approval or add workflows unless the owner explicitly changes this policy.
 
 ## Commits and PRs
 

@@ -15,10 +15,13 @@ pnpm-debug.log*
 
 # environment variables
 .env
+.env.*
+!.env.example
 .env.production
 
 # cloudflare
 .dev.vars
+.dev.vars.*
 .wrangler/
 
 # macOS-specific files
