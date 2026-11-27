@@ -10,7 +10,7 @@ This file provides guidance to AI Agent when working with code in this repositor
 - `npm run lint` — ESLint with type-checked rules
 - `npm run lint:fix` — auto-fix lint issues
 - `npm run format` — Prettier (includes prettier-plugin-astro + prettier-plugin-tailwindcss)
-- `npm run smoke` — dependency-free auth-flow smoke test (`scripts/smoke.mjs`) against a running server, `BASE_URL` env (default `http://localhost:4321`). Run after dependency upgrades; CI runs it against the production preview with a local Supabase.
+- `npm run smoke` — dependency-free auth-flow smoke test (`scripts/smoke.mjs`) against the local dev server and local Supabase only; set `BASE_URL` (default `http://localhost:4321`). Never point it at hosted Supabase or a public Worker.
 
 Pre-commit hooks: husky + lint-staged runs `eslint --fix` on `*.{ts,tsx,astro}` and `prettier --write` on `*.{json,css,md}`.
 
@@ -25,9 +25,10 @@ Full server-side rendering (`output: "server"` in astro.config.mjs). All pages a
 ### Auth flow
 
 - `src/lib/supabase.ts` — creates a Supabase SSR client using `@supabase/ssr` with cookie-based sessions. Uses `astro:env/server` for `SUPABASE_URL` and `SUPABASE_KEY` (server-only secrets declared in astro.config.mjs `env.schema`).
+- `src/lib/app-origin.ts` — validates server-only `APP_ORIGIN`; production origins must use HTTPS and must not be derived from request headers.
 - `src/middleware.ts` — runs on every request, resolves the current user, attaches to `context.locals.user`. Redirects unauthenticated users away from routes listed in `PROTECTED_ROUTES`.
-- API endpoints: `src/pages/api/auth/{signin,signup,signout}.ts`
-- Auth pages: `src/pages/auth/{signin,signup,confirm-email}.astro`
+- API endpoints: `src/pages/api/auth/{signin,signup,signout,confirm}.ts`
+- Auth pages: `src/pages/auth/{signin,signup,confirm-email,confirm}.astro`
 - Protected page example: `src/pages/dashboard.astro`
 
 ### Key conventions
@@ -45,11 +46,11 @@ Full server-side rendering (`output: "server"` in astro.config.mjs). All pages a
 ### Environment
 
 - Node.js v22.14.0 (see `.nvmrc`)
-- Env vars: `SUPABASE_URL`, `SUPABASE_KEY` (copy `.env.example` to `.env` for Node, or `.dev.vars` for Cloudflare local dev)
+- Env vars: server-only `SUPABASE_URL`, `SUPABASE_KEY`, and `APP_ORIGIN` (copy `.env.example` to `.env` for Node, or `.dev.vars` for Cloudflare local dev)
 - Local Supabase: `npx supabase start` (requires Docker)
 - Cloudflare local dev: secrets go in `.dev.vars` (gitignored)
-- Deploy: `npx wrangler deploy` (requires Cloudflare account + `wrangler` auth)
+- The planned production release uses Cloudflare Workers Builds after a protected PR merge to `master`; do not connect Builds until final owner approval. Manual preview deployment and production dry-run commands are documented in `README.md#deployment`.
 
-## CI
+## Continuous deployment
 
-GitHub Actions workflow (`.github/workflows/ci.yml`) runs lint + build on every push and PR to master. Requires `SUPABASE_URL` and `SUPABASE_KEY` repository secrets for the build step.
+GitHub Actions are disabled and no workflow is used. Cloudflare Workers Builds is the planned sole automatic production deployment path, pending final owner approval and configuration; lint, `astro check`, and the local-only smoke test are run manually before merge. Preserve the `master` PR protection and do not add automatic check gates without owner approval.

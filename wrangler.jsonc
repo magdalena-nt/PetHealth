@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "10x-astro-starter",
+  "name": "pethealth",
   "main": "@astrojs/cloudflare/entrypoints/server",
   "compatibility_date": "2026-05-08",
   "compatibility_flags": ["nodejs_compat"],
@@ -9,7 +9,25 @@
     "directory": "./dist",
     "not_found_handling": "404-page",
   },
+  "vars": {
+    "APP_ORIGIN": "https://pethealth.parchawka.workers.dev",
+  },
   "observability": {
     "enabled": true,
+  },
+  "env": {
+    "preview": {
+      "name": "pethealth-preview",
+      "compatibility_date": "2026-11-20",
+      "preview_urls": false,
+      "assets": {
+        "binding": "ASSETS",
+        "directory": "./dist",
+        "not_found_handling": "404-page",
+      },
+      "vars": {
+        "APP_ORIGIN": "https://pethealth-preview.parchawka.workers.dev",
+      },
+    },
   },
 }

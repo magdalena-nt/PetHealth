@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { getAppOrigin } from "@/lib/app-origin";
 import { createClient } from "@/lib/supabase";
 
 export const POST: APIRoute = async (context) => {
@@ -6,11 +7,20 @@ export const POST: APIRoute = async (context) => {
   const email = form.get("email") as string;
   const password = form.get("password") as string;
 
+  const appOrigin = getAppOrigin();
+  if (!appOrigin) {
+    return context.redirect(`/auth/signup?error=${encodeURIComponent("Application origin is not configured")}`);
+  }
+
   const supabase = createClient(context.request.headers, context.cookies);
   if (!supabase) {
     return context.redirect(`/auth/signup?error=${encodeURIComponent("Supabase is not configured")}`);
   }
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: new URL("/auth/confirm", appOrigin).toString() },
+  });
 
   if (error) {
     return context.redirect(`/auth/signup?error=${encodeURIComponent(error.message)}`);
